@@ -1,4 +1,4 @@
-Proszê dodawaæ nazwy funkcji tak, ¿eby by³o wiadomo co one robi¹ np:
+ProszÄ™ dodawaÄ‡ nazwy funkcji tak, Å¼eby byÅ‚o wiadomo co one robia np:
 
-pr_ksiegozbior_wysz - wyszukaj, zak³adka ksiêgozbiór dla pracownika
-cz_profil - zak³adka profil dla czytelnika, bo jest tylko jedna funkcja
+pr_ksiegozbior_wysz.sql - wyszukaj, zakÅ‚adka ksiÄ™gozbiÃ³r dla pracownika
+cz_profil.sql - zakÅ‚adka profil dla czytelnika, bo jest tylko jedna funkcja
