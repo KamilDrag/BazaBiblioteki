@@ -1,0 +1,26 @@
+--funkcja wyszukuj¹ca pracowników 
+--i15 (zdjecie)
+
+CREATE OR REPLACE FUNCTION pr_wyszukaj_pracownika(i character varying(20), 
+n character varying(20), 
+m character varying(20),
+k character varying(20),
+u character varying(20),
+nr character varying(20),
+l character varying(20),
+ht character varying(20))
+RETURNS TABLE
+(imie character varying(20), nazwisko character varying(20), miejscowosc character varying(20), kod_pocztowy character varying(20), 
+ulica character varying(20), nr_domu character varying(20), login character varying(20))
+AS
+$funct$
+BEGIN
+	RETURN QUERY
+	SELECT osoba.imie, osoba.nazwisko, adres.miejscowosc, adres."kod pocztowy", adres.ulica, adres.nr_domu, osoba.login 
+	FROM osoba INNER JOIN adres USING (id_adresu) 
+	WHERE
+	((osoba.id_czytelnika) IS NULL) AND 
+	( (osoba.imie = ($1)) OR (osoba.nazwisko = ($2)) OR (osoba.login =($7)) ) AND 
+	( (adres.miejscowosc =($3)) OR (adres."kod pocztowy" = ($4)) OR (adres.ulica = ($5)) OR (adres.nr_domu ILIKE ($6)));
+END; 
+$funct$  LANGUAGE plpgsql;
