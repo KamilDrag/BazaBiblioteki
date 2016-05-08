@@ -1,0 +1,27 @@
+--i11
+CREATE OR REPLACE FUNCTION pr_wyszukaj_egzemplarz(
+tytu character varying(20), 
+a character varying(41), 
+i character varying(20),
+t character varying(20),
+e character varying(20),
+ty character varying(20),
+jez character varying(20))
+
+RETURNS TABLE
+(EAN character varying(20), Tytu³ character varying(20), Autor character varying(41), Typ Typ, 
+Gatunek character varying(20), Tagi character varying(20), Jêzyk character varying(20), ISBN character varying(20) )
+AS
+$funct$
+BEGIN
+	RETURN QUERY
+	SELECT egzemplarz.kod_ean, dzielo.tytul, autor.imie||' '||autor.nazwisko, dzielo.typ, dzielo.gatunek, "Tag".tag, egzemplarz.jezyk, egzemplarz.isbn
+	FROM autor INNER JOIN autorstwo USING (id_autora) 
+	INNER JOIN dzielo USING(id_dziela) 
+	RIGHT JOIN egzemplarz ON egzemplarz.id_dziela=dzielo.id_dziela
+	INNER JOIN "Tag" USING (kod_ean)
+	WHERE 
+	egzemplarz.kod_ean ILIKE ('%'||$1||'%') OR dzielo.tytul = ($2) OR (autor.imie||' '||autor.nazwisko) = ($3) OR dzielo.typ = ($4) OR dzielo.gatunek = ($5) OR 
+	"Tag".tag = ($6) OR egzemplarz.jezyk = ($7) OR egzemplarz.isbn = ($8);
+END; 
+$funct$  LANGUAGE plpgsql; 

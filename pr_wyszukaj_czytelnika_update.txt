@@ -1,6 +1,8 @@
 -- interfesjs nr i17
 -- szczególne dzia³anie: znalezienie czytelnika w pierwszej kolejnosci dokonuje siee poprzez podanie 
 
+--update 8-05-2016
+
 CREATE OR REPLACE FUNCTION pr_wyszukaj_czytelnika(i character varying(20), 
 n character varying(20), 
 m character varying(20),
@@ -19,8 +21,7 @@ BEGIN
 	FROM czytelnik INNER JOIN osoba USING(id_czytelnika)
 	INNER JOIN adres USING(id_adresu) 
 	WHERE
-	( (osoba.imie = ($1)) OR (osoba.nazwisko = ($2)) OR (osoba.login =($7)) ) AND 
+	( (osoba.imie = ($1)) AND (osoba.nazwisko = ($2)) OR (osoba.login =($7)) ) AND 
 	( (adres.miejscowosc =($3)) OR (adres."kod pocztowy" = ($4)) OR (adres.ulica = ($5)) OR (adres.nr_domu ILIKE ($6||'%')));
 END; 
 $funct$  LANGUAGE plpgsql;
-*/
